@@ -7,7 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "typecheck": "tsc --noEmit -p tsconfig.hook.json",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs,json,jsonc}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
   },
   "dependencies": {
     "next": "16.2.6",
@@ -20,6 +27,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
