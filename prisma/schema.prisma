@@ -6,3 +6,42 @@ generator client {
 datasource db {
   provider = "sqlite"
 }
+
+model User {
+  id                 String              @id @default(uuid(7))
+  name               String
+  email              String              @unique
+  password           String?
+  phone              String?
+  status             String              @default("PENDING")
+  role               String              @default("USER")
+  permissions        String              @default("[]")
+  updatedAt          DateTime            @updatedAt
+  createdAt          DateTime            @default(now())
+  verificationTokens VerificationToken[]
+  sessions           Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(uuid(7))
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id        String   @id @default(uuid(7))
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("verification_tokens")
+}

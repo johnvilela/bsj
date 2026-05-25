@@ -43,3 +43,7 @@ yarn-error.log*
 next-env.d.ts
 
 /generated/prisma
+
+# sqlite databases (kept in db/, only .gitkeep tracked)
+/db/*.db
+/db/*.db-journal
